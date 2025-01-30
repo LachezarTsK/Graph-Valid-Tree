@@ -14,13 +14,13 @@ public class Solution
         UnionFind unionFind = new UnionFind(numberOfNodes);
         foreach (int[] edge in edges)
         {
-            if (!unionFind.joinByRank(edge[0], edge[1]))
+            if (!unionFind.JoinByRank(edge[0], edge[1]))
             {
                 return false;
             }
         }
 
-        return unionFind.allComponentsAreConnectedWithoutCycles();
+        return unionFind.AllComponentsAreConnectedWithoutCycles();
     }
 
 }
@@ -39,21 +39,21 @@ class UnionFind
         numberOfGroupsWithConnectedComponents = numberOfComponents;
     }
 
-    public int findParent(int index)
+    public int FindParent(int index)
     {
         if (parent[index] != index)
         {
-            parent[index] = findParent(parent[index]);
+            parent[index] = FindParent(parent[index]);
         }
         return parent[index];
     }
 
-    public bool joinByRank(int indexOne, int indexTwo)
+    public bool JoinByRank(int indexOne, int indexTwo)
     {
-        int first = findParent(indexOne);
-        int second = findParent(indexTwo);
+        int first = FindParent(indexOne);
+        int second = FindParent(indexTwo);
 
-        if (cycleFound(first, second))
+        if (CycleFound(first, second))
         {
             return false;
         }
@@ -73,12 +73,12 @@ class UnionFind
         return true;
     }
 
-    private bool cycleFound(int parentFirst, int parentSecond)
+    private bool CycleFound(int parentFirst, int parentSecond)
     {
         return parentFirst == parentSecond;
     }
 
-    public bool allComponentsAreConnectedWithoutCycles()
+    public bool AllComponentsAreConnectedWithoutCycles()
     {
         return numberOfGroupsWithConnectedComponents == 1;
     }
